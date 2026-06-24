@@ -100,6 +100,7 @@ def _track_sequence(
         tracker=str(tracker_cfg_path),
         conf=config.tracking.conf,
         iou=config.tracking.iou,
+        imgsz=config.detection.imgsz,
         device=config.detection.device,
         stream=True,
         persist=True,

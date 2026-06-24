@@ -24,6 +24,9 @@ weights/*
 # Generated outputs (keep a few small committed examples manually if desired)
 outputs/*
 !outputs/.gitkeep
+!outputs/metrics.json
+!outputs/results_summary.png
+!outputs/tracked_output.gif
 
 # Experiment tracking
 mlruns/

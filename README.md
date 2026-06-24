@@ -15,18 +15,23 @@ Until then this link is a placeholder; it isn't committed since `outputs/` is gi
 
 | Metric | Value |
 |---|---|
-| mAP@0.5 (detection) | _TBD — fill in after a full run_ |
-| mAP@0.5:0.95 (detection) | _TBD_ |
-| BoT-SORT — HOTA / MOTA / IDF1 | _TBD / TBD / TBD_ |
-| ByteTrack — HOTA / MOTA / IDF1 | _TBD / TBD / TBD_ |
-| PyTorch FPS (CPU) | _TBD_ |
-| ONNX FPS (CPU) | _TBD_ |
-| Measured ONNX speedup | _TBD×_ |
+| mAP@0.5 (detection) | 0.606 |
+| mAP@0.5:0.95 (detection) | 0.331 |
+| BoT-SORT — HOTA / MOTA / IDF1 | unavailable\* / 0.522 / 0.472 |
+| ByteTrack — HOTA / MOTA / IDF1 | unavailable\* / 0.522 / 0.472 |
+| PyTorch FPS (CPU) | 11.6 (86.4 ms/frame) |
+| ONNX FPS (CPU) | 21.3 (47.0 ms/frame) |
+| Measured ONNX speedup | 1.84× |
 
-Numbers are written to `outputs/metrics.json` by `scripts/evaluate.py` and are always
-the real measured values for whatever run produced them — nothing here is a target or
-a fabricated placeholder beyond the "TBD" cells above, which exist only until the first
-full run completes.
+\* HOTA requires the optional `trackeval` install (`pip install -e ".[trackeval]"`),
+which wasn't installed for this run — MOTA/IDF1 are the documented fallback (see
+[Design notes](#design-notes)), not a bug or omission.
+
+Numbers are written to `outputs/metrics.json` by `scripts/evaluate.py` (committed
+alongside this README) and are always the real measured values for whatever run
+produced them — full run: 30 epochs, all 5 train sequences, imgsz 640, on a Kaggle
+T4 GPU; benchmark numbers are CPU-only (`benchmark.devices: ["cpu"]` in
+`configs/default.yaml`).
 
 ## Pipeline overview
 

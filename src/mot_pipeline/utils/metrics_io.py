@@ -25,13 +25,14 @@ def load_metrics(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def update_metrics(path: Path, section: str, data: dict[str, Any]) -> dict[str, Any]:
+def update_metrics(path: Path, section: str, data: Any) -> dict[str, Any]:
     """Merge ``data`` into ``metrics[section]`` and rewrite the metrics file.
 
     Args:
         path: Path to ``outputs/metrics.json``.
         section: Top-level key to write, e.g. ``"detection"``, ``"speed"``.
-        data: New content for that section (replaces any existing section).
+        data: New, JSON-serialisable content for that section (a dict or a
+            list, depending on the section), replacing any existing value.
 
     Returns:
         The full, updated metrics dict.

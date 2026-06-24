@@ -18,7 +18,7 @@ def test_default_config_loads(configs_dir: Path) -> None:
 
 
 def test_smoke_override_merges_on_top_of_default(configs_dir: Path) -> None:
-    config = load_config(configs_dir / "default.yaml", override_path=configs_dir / "smoke.yaml")
+    config = load_config(configs_dir / "default.yaml", override_paths=[configs_dir / "smoke.yaml"])
     assert config.detection.epochs == 1
     assert config.detection.device == "cpu"
     assert config.detection.fraction == 0.02
@@ -27,10 +27,23 @@ def test_smoke_override_merges_on_top_of_default(configs_dir: Path) -> None:
     assert config.export.opset == 13
 
 
+def test_multiple_overrides_are_merged_in_order(configs_dir: Path) -> None:
+    config = load_config(
+        configs_dir / "default.yaml",
+        override_paths=[configs_dir / "smoke.yaml", configs_dir / "kaggle.yaml"],
+    )
+    # smoke.yaml's tiny split/training settings still apply...
+    assert config.detection.epochs == 1
+    assert config.split.eval_sequence == "MOT17-09"
+    # ...but kaggle.yaml (applied second) overrides paths and device.
+    assert config.paths.raw_dir == Path("/kaggle/input/mot17/MOT17")
+    assert config.detection.device == "0"
+
+
 def test_cli_overrides_take_precedence_over_files(configs_dir: Path) -> None:
     config = load_config(
         configs_dir / "default.yaml",
-        override_path=configs_dir / "smoke.yaml",
+        override_paths=[configs_dir / "smoke.yaml"],
         cli_overrides=["detection.epochs=5", "detection.device=cpu"],
     )
     assert config.detection.epochs == 5

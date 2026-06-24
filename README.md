@@ -96,10 +96,18 @@ make gif        # short GIF clip of the tracked video, for this README
 make all        # prepare -> train -> track -> export -> benchmark -> evaluate
 ```
 
-Every target accepts config overrides, e.g. on Kaggle:
+Every target accepts config overrides; `--override` is repeatable and applied in
+order, so you can combine `smoke.yaml` (tiny run) with `kaggle.yaml` (paths) for a
+quick Kaggle validation before a full run:
 
 ```bash
-python scripts/train.py --config configs/default.yaml --override configs/kaggle.yaml --set detection.epochs=50
+# Quick end-to-end smoke test on Kaggle, with Kaggle's path layout:
+python scripts/prepare_dataset.py --config configs/default.yaml \
+    --override configs/smoke.yaml --override configs/kaggle.yaml
+
+# Full run on Kaggle:
+python scripts/train.py --config configs/default.yaml \
+    --override configs/kaggle.yaml --set detection.epochs=50
 ```
 
 Quality gates:

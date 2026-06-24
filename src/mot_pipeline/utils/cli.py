@@ -20,13 +20,20 @@ def build_arg_parser(description: str) -> argparse.ArgumentParser:
         description: One-line description shown in ``--help``.
 
     Returns:
-        A parser accepting ``--config``, ``--override``, and repeatable
-        ``--set key=value`` flags.
+        A parser accepting ``--config``, repeatable ``--override``, and
+        repeatable ``--set key=value`` flags.
     """
     parser = argparse.ArgumentParser(description=description)
     parser.add_argument("--config", type=Path, required=True, help="Path to the base YAML config.")
     parser.add_argument(
-        "--override", type=Path, default=None, help="Optional YAML file merged on top of --config."
+        "--override",
+        dest="overrides_files",
+        action="append",
+        type=Path,
+        default=[],
+        metavar="path",
+        help="YAML file merged on top of --config, in order given. Repeatable, "
+        "e.g. --override configs/smoke.yaml --override configs/kaggle.yaml.",
     )
     parser.add_argument(
         "--set",
@@ -48,4 +55,6 @@ def resolve_config(args: argparse.Namespace) -> Config:
     Returns:
         The validated, fully merged :class:`Config`.
     """
-    return load_config(args.config, override_path=args.override, cli_overrides=args.overrides)
+    return load_config(
+        args.config, override_paths=args.overrides_files, cli_overrides=args.overrides
+    )

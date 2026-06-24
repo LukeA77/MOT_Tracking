@@ -199,30 +199,32 @@ def parse_cli_overrides(overrides: list[str]) -> dict[str, Any]:
 
 def load_config(
     path: Path,
-    override_path: Path | None = None,
+    override_paths: list[Path] | None = None,
     cli_overrides: list[str] | None = None,
 ) -> Config:
     """Load, merge, and validate the pipeline configuration.
 
     Args:
         path: Path to the base YAML config (typically ``configs/default.yaml``).
-        override_path: Optional YAML file deep-merged on top of ``path``
-            (typically ``configs/smoke.yaml``).
+        override_paths: Optional YAML files deep-merged on top of ``path`` in
+            order (e.g. ``[configs/smoke.yaml, configs/kaggle.yaml]`` to
+            combine a tiny smoke run with Kaggle's path layout).
         cli_overrides: Optional ``"key.subkey=value"`` strings, applied last
-            and taking precedence over both YAML files.
+            and taking precedence over all YAML files.
 
     Returns:
         A validated :class:`Config` instance.
 
     Raises:
-        FileNotFoundError: If ``path`` or ``override_path`` does not exist.
+        FileNotFoundError: If ``path`` or any ``override_paths`` entry does
+            not exist.
         pydantic.ValidationError: If the merged config fails validation.
     """
     if not path.is_file():
         raise FileNotFoundError(f"Config file not found: {path}")
     merged: dict[str, Any] = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
 
-    if override_path is not None:
+    for override_path in override_paths or []:
         if not override_path.is_file():
             raise FileNotFoundError(f"Override config file not found: {override_path}")
         override_data = yaml.safe_load(override_path.read_text(encoding="utf-8")) or {}

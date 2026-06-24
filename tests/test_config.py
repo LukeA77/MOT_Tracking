@@ -36,7 +36,7 @@ def test_multiple_overrides_are_merged_in_order(configs_dir: Path) -> None:
     assert config.detection.epochs == 1
     assert config.split.eval_sequence == "MOT17-09"
     # ...but kaggle.yaml (applied second) overrides paths and device.
-    assert config.paths.raw_dir == Path("/kaggle/input/mot17/MOT17")
+    assert config.paths.raw_dir == Path("/kaggle/input/datasets/ahmedalycess/mot17-zip/MOT17")
     assert config.detection.device == "0"
 
 

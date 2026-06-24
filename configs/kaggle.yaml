@@ -2,15 +2,14 @@
 # under /kaggle/input/<dataset-slug>/... and only /kaggle/working/ is
 # writable, so converted data, weights, and outputs all move there.
 #
-# Adjust raw_dir below to match the actual folder name inside whichever
-# MOT17 Kaggle dataset you attach to the notebook (check with `ls
-# /kaggle/input/` once the dataset is added -- the slug depends on how it
-# was uploaded/named).
+# raw_dir below matches the "MOT17" dataset by ahmedalycess on Kaggle
+# (slug: ahmedalycess/mot17-zip). If you attach a different MOT17 dataset,
+# re-check the path with: !find /kaggle/input -iname "seqinfo.ini" | head -5
 #
 # Usage: python scripts/prepare_dataset.py --config configs/default.yaml --override configs/kaggle.yaml
 
 paths:
-  raw_dir: /kaggle/input/mot17/MOT17
+  raw_dir: /kaggle/input/datasets/ahmedalycess/mot17-zip/MOT17
   converted_dir: /kaggle/working/data/converted
   weights_dir: /kaggle/working/weights
   outputs_dir: /kaggle/working/outputs

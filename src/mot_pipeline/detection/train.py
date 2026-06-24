@@ -42,6 +42,11 @@ def train_detector(config: Config) -> TrainResult:
             (run ``prepare_dataset`` first).
     """
     from ultralytics import YOLO
+    from ultralytics import settings as ultralytics_settings
+
+    # Ultralytics' own MLflow auto-logging starts a second run that corrupts
+    # mlflow's active-run tracking out from under mlflow_run() below.
+    ultralytics_settings.update({"mlflow": False})
 
     logger = get_logger(__name__, config.log_level)
     set_seed(config.detection.seed)

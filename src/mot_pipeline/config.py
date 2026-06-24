@@ -28,6 +28,7 @@ class PathsConfig(BaseModel):
     converted_dir: Path = Path("data/converted")
     weights_dir: Path = Path("weights")
     outputs_dir: Path = Path("outputs")
+    configs_dir: Path = Path("configs")
 
 
 class SplitConfig(BaseModel):

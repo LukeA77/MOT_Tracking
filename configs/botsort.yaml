@@ -1,0 +1,19 @@
+# BoT-SORT tracker parameters, versioned here (rather than left buried inside
+# the ultralytics package install) so changes are tracked like any other config.
+# Based on Ultralytics' bundled cfg/trackers/botsort.yaml defaults.
+
+tracker_type: botsort
+
+# Association thresholds
+track_high_thresh: 0.25 # threshold for the first association
+track_low_thresh: 0.1 # threshold for the second association
+new_track_thresh: 0.25 # threshold to init a new track if the detection doesn't match any track
+track_buffer: 30 # buffer to calculate the time when to remove tracks
+match_thresh: 0.8 # threshold for matching tracks
+fuse_score: true # fuse confidence scores with the iou distances before matching
+
+# BoT-SORT-specific: camera motion compensation + (optional) ReID
+gmc_method: sparseOptFlow # method of global motion compensation
+proximity_thresh: 0.5 # min IoU for valid match with ReID
+appearance_thresh: 0.25 # min appearance similarity for valid match with ReID
+with_reid: false # enable ReID-based appearance matching (slower, more accurate)

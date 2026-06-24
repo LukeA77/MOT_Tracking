@@ -6,6 +6,7 @@ paths:
   converted_dir: data/converted
   weights_dir: weights
   outputs_dir: outputs
+  configs_dir: configs
 
 split:
   train_sequences: ["MOT17-02", "MOT17-04", "MOT17-05", "MOT17-11", "MOT17-13"]

@@ -17,3 +17,5 @@ gmc_method: sparseOptFlow # method of global motion compensation
 proximity_thresh: 0.5 # min IoU for valid match with ReID
 appearance_thresh: 0.25 # min appearance similarity for valid match with ReID
 with_reid: false # enable ReID-based appearance matching (slower, more accurate)
+model: auto # ReID encoder; only loaded when with_reid is true, but this field
+# is required to exist by current Ultralytics versions regardless

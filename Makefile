@@ -1,4 +1,4 @@
-.PHONY: setup lint typecheck test smoke prepare train track export benchmark evaluate all clean
+.PHONY: setup lint typecheck test smoke prepare train track export benchmark evaluate gif all clean
 
 PYTHON ?= python
 
@@ -34,6 +34,9 @@ benchmark:
 
 evaluate:
 	$(PYTHON) scripts/evaluate.py --config configs/default.yaml
+
+gif:
+	$(PYTHON) scripts/make_gif.py --config configs/default.yaml
 
 # Full pipeline in smoke mode: tiny data, 1 epoch, CPU. Must run end-to-end
 # on a clean clone with no manual steps beyond `make setup` + MOT17 present.

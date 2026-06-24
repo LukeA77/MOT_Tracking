@@ -1,0 +1,20 @@
+# Kaggle-notebook path overrides. Kaggle mounts input datasets read-only
+# under /kaggle/input/<dataset-slug>/... and only /kaggle/working/ is
+# writable, so converted data, weights, and outputs all move there.
+#
+# Adjust raw_dir below to match the actual folder name inside whichever
+# MOT17 Kaggle dataset you attach to the notebook (check with `ls
+# /kaggle/input/` once the dataset is added -- the slug depends on how it
+# was uploaded/named).
+#
+# Usage: python scripts/prepare_dataset.py --config configs/default.yaml --override configs/kaggle.yaml
+
+paths:
+  raw_dir: /kaggle/input/mot17/MOT17
+  converted_dir: /kaggle/working/data/converted
+  weights_dir: /kaggle/working/weights
+  outputs_dir: /kaggle/working/outputs
+  configs_dir: configs
+
+detection:
+  device: "0" # Kaggle GPU

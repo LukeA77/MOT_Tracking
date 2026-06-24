@@ -1,0 +1,45 @@
+# Full-run configuration. Every parameter the pipeline uses lives here or in
+# an override file like smoke.yaml -- nothing is hardcoded in source code.
+
+paths:
+  raw_dir: data/MOT17
+  converted_dir: data/converted
+  weights_dir: weights
+  outputs_dir: outputs
+
+split:
+  train_sequences: ["MOT17-02", "MOT17-04", "MOT17-05", "MOT17-11", "MOT17-13"]
+  val_sequences: ["MOT17-09", "MOT17-10"]
+  eval_sequence: "MOT17-09"
+
+convert:
+  keep_classes: [1] # MOT17 class 1 = pedestrian
+  use_consider_flag: true
+  min_visibility: 0.0
+
+detection:
+  model: yolo26n.pt # fallback: yolo11n.pt -- see README for when/why
+  epochs: 30
+  imgsz: 640
+  batch: 16
+  device: "0" # "cpu" | "0" | "mps"
+  fraction: 1.0
+  seed: 42
+
+tracking:
+  trackers: ["botsort.yaml", "bytetrack.yaml"]
+  conf: 0.25
+  iou: 0.5
+
+export:
+  format: onnx
+  opset: 13
+  dynamic: true
+  quantize_int8: false
+
+benchmark:
+  n_frames: 100
+  warmup: 10
+  devices: ["cpu"]
+
+log_level: INFO

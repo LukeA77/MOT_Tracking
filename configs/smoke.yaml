@@ -1,0 +1,22 @@
+# Smoke-test overrides: deep-merged on top of default.yaml to validate the
+# entire pipeline end-to-end, on CPU, in a couple of minutes.
+# Usage: load_config(default.yaml, override_path=smoke.yaml)
+
+split:
+  train_sequences: ["MOT17-02"]
+  val_sequences: ["MOT17-09"]
+  eval_sequence: "MOT17-09"
+
+detection:
+  model: yolo26n.pt
+  epochs: 1
+  imgsz: 320
+  batch: 2
+  device: cpu
+  fraction: 0.02
+  seed: 42
+
+benchmark:
+  n_frames: 10
+  warmup: 2
+  devices: ["cpu"]

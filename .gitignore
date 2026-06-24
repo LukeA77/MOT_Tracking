@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.egg-info/
+build/
+dist/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+htmlcov/
+.coverage
+
+# Data & model artefacts (never commit raw/converted datasets or weights)
+data/*
+!data/.gitkeep
+weights/*
+!weights/.gitkeep
+*.pt
+*.onnx
+*.engine
+
+# Generated outputs (keep a few small committed examples manually if desired)
+outputs/*
+!outputs/.gitkeep
+
+# Experiment tracking
+mlruns/
+mlartifacts/
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

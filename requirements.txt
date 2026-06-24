@@ -1,0 +1,27 @@
+# Pinned runtime dependencies. Generate the fully resolved lockfile with:
+#   pip install -r requirements.txt && pip freeze > requirements.lock
+ultralytics==8.3.40
+onnx==1.17.0
+onnxruntime==1.19.2
+opencv-python==4.10.0.84
+numpy==1.26.4
+pandas==2.2.3
+matplotlib==3.9.2
+lap==0.5.12
+pydantic==2.9.2
+pydantic-settings==2.6.1
+pyyaml==6.0.2
+mlflow==2.17.2
+motmetrics==1.4.0
+
+# Dev / quality tooling
+pytest==8.3.3
+pytest-cov==5.0.0
+ruff==0.7.4
+mypy==1.13.0
+types-PyYAML==6.0.12.20240917
+pre-commit==4.0.1
+
+# Optional: official MOTChallenge evaluator (HOTA/MOTA/IDF1).
+# Install separately if you want HOTA; falls back to motmetrics otherwise.
+# git+https://github.com/JonathonLuiten/TrackEval.git

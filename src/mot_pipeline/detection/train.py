@@ -74,6 +74,8 @@ def train_detector(config: Config) -> TrainResult:
             exist_ok=True,
         )
 
+        if model.trainer is None:
+            raise RuntimeError("model.train() completed but left no trainer; cannot locate best.pt")
         best_src = Path(model.trainer.best)
         config.paths.weights_dir.mkdir(parents=True, exist_ok=True)
         best_dst = config.paths.weights_dir / "best.pt"

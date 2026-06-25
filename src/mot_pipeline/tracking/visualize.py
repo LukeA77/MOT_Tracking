@@ -65,9 +65,8 @@ def render_tracking_video(
     height, width = first_frame.shape[:2]
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    writer = cv2.VideoWriter(
-        str(out_path), cv2.VideoWriter_fourcc(*"mp4v"), frame_rate, (width, height)
-    )
+    fourcc = cv2.VideoWriter_fourcc(*"mp4v")  # type: ignore[attr-defined]
+    writer = cv2.VideoWriter(str(out_path), fourcc, frame_rate, (width, height))
     try:
         for frame in range(1, seq_length + 1):
             image = cv2.imread(str(image_dir / f"{frame:06d}{im_ext}"))

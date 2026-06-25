@@ -53,5 +53,5 @@ def video_to_gif(video_path: Path, out_path: Path, seconds: float = 5.0, fps: in
         capture.release()
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    imageio.mimsave(str(out_path), frames, fps=fps, loop=0)
+    imageio.mimsave(str(out_path), frames, fps=fps, loop=0)  # type: ignore[arg-type]
     return out_path

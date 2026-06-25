@@ -53,7 +53,9 @@ select = ["E", "F", "I", "W", "UP", "B"]
 
 [tool.mypy]
 python_version = "3.10"
-warn_unused_ignores = true
+# Off: lazily-imported deps (cv2, imageio) aren't installed in the lightweight
+# local venv, so the same type: ignore comments are "unused" here but needed in CI.
+warn_unused_ignores = false
 warn_redundant_casts = true
 disallow_untyped_defs = true
 ignore_missing_imports = true
